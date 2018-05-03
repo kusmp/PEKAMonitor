@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <children>
+      <TableView fx:id="table" layoutX="31.0" layoutY="70.0" prefHeight="327.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+        <columns>
+          <TableColumn fx:id="LineNumberColumn" prefWidth="111.0" text="Linia" />
+          <TableColumn fx:id="DestinationColumn" prefWidth="133.0" text="Kierunek" />
+            <TableColumn fx:id="TimeColumn" minWidth="9.0" prefWidth="114.0" text="Czas" />
+        </columns>
+      </TableView>
+      <Label fx:id="infoLabel" layoutX="9.0" layoutY="21.0" prefHeight="40.0" prefWidth="580.0" text="Label" textFill="#d400ff" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="21.0">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font></Label>
+   </children>
+</AnchorPane>
