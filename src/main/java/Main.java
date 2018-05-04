@@ -10,10 +10,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("appLayout.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setTitle("PEKAMonitor");
+        primaryStage.setScene(new Scene(root, 440, 440));
+        root.getStylesheets().add("appStyles.css");
         primaryStage.show();
-       // Receiver rc = new Receiver();
     }
 
 

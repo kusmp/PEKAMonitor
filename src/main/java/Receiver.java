@@ -1,6 +1,7 @@
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import data.*;
+import data.stops.Stops;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.examples.HtmlToPlainText;
@@ -35,7 +36,7 @@ public class Receiver {
        conn.setRequestProperty("Accept", "text/javascript, text/html, application/xml, text/xml, */*");
        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-       String urlParameters = "method=getTimes&p0=%7B%22symbol%22%3A%22AWF41%22%7D";
+       String urlParameters = "method=getTimes&p0=%7B%22symbol%22%3A%22MT43%22%7D";
 
        conn.setDoOutput(true);
         DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
@@ -56,7 +57,7 @@ public class Receiver {
         }
         in.close();
 
-        System.out.println(response.toString());
+     //   System.out.println(response.toString());
 
         ObjectMapper objectMapper = new ObjectMapper();
         byte[] jsonBytes = String.valueOf(response).getBytes();
@@ -101,7 +102,7 @@ public class Receiver {
         }
         in.close();
 
-        System.out.println(response.toString());
+     //   System.out.println(response.toString());
         String returnMessage="";
         ObjectMapper objectMapper = new ObjectMapper();
         byte[] jsonBytes = String.valueOf(response).getBytes();
@@ -116,6 +117,45 @@ public class Receiver {
         returnMessage = returnMessage.replaceAll("[\r\n]+", " ");
         System.out.println(returnMessage);
         return returnMessage;
+    }
+
+    public static Stops getStopPoints(String pattern) throws IOException{
+        Stops stops = new Stops();
+        String url = "https://www.peka.poznan.pl/vm/method.vm?ts=1525359631644";
+        URL obj = new URL(url);
+        HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
+
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Accept", "text/javascript, text/html, application/xml, text/xml, */*");
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+        String urlParameters = "method=getStopPoints&p0=%7B%22pattern%22%3A%22"+pattern+"%22%7D";
+
+        conn.setDoOutput(true);
+        DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+        wr.writeBytes(urlParameters);
+        wr.flush();
+        wr.close();
+
+        int responseCode = conn.getResponseCode();
+        System.out.println("\nSending 'POST' request to URL : " + url);
+        System.out.println("Post parameters : " + urlParameters);
+        System.out.println("Response Code : " + responseCode);
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while((inputLine = in.readLine()) != null){
+            response.append(inputLine);
+        }
+        in.close();
+
+        System.out.println(response.toString());
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        byte[] jsonBytes = String.valueOf(response).getBytes();
+         stops = objectMapper.readValue(jsonBytes, Stops.class);
+        return stops;
     }
 
 
